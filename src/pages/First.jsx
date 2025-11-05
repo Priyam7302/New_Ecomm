@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-// import "../pages/First.css";
+import instance from "../config/axiosConfig.js";
 import '../App.css';
+import { Link } from "react-router-dom";
 
 function First() {
     const [products, setProducts] = useState([]);
@@ -14,7 +14,7 @@ function First() {
     async function getData() {
         try {
             setLoading(true);
-            const response = await axios.get("https://fakestoreapi.com/products");
+            const response = await instance.get("/product/get");
             console.log(response.data);
             setProducts(response.data);
             setLoading(false);
@@ -35,11 +35,12 @@ function First() {
         <>
         <div className="products-main">
             {products.map((obj) => (
-                <div className="card" key={obj.id}>
-                    <a href={`/product/${obj.id}`}>
-                        <img src={obj.image} alt={obj.title} />
-                    </a>
-                    <p className="title"><a href={`/product/${obj.id}`}>{trimContent(obj.title, 8)}</a></p>
+                <div className="card" key={obj._id}>
+                    <Link to={`/product/${obj._id}`}>
+                        <img src={obj.image} alt={obj.name} />
+                    </Link>
+                    <p className="title"><Link to={`/product/${obj._id}`}>{trimContent(obj.name, 8)}</Link></p>
+                    {/* <p className="title"><Link to={`/product/${obj._id}`}>{obj.name}</Link></p> */}
                     <p className="price">${obj.price}</p>
                 </div>
             ))}

@@ -1,18 +1,30 @@
-// import '../components/Header.css';
+import { NavLink } from "react-router-dom";
+import { useCart } from "../contexts/CartProvider";
 
-const Header = () => {
+function Header() {
+    const { cart } = useCart();
+
     return (
-        <header>
-            <h1><a href="/">Ecommerce</a></h1>
+        <header className="header">
+            <h1 className="logo">
+                <NavLink to="/">Ecommerce</NavLink>
+            </h1>
+
             <nav>
-                <ul>
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/wishlist">Wishlist</a></li>
-                    <li><a href="/login">Login</a></li>
+                <ul className="nav-links">
+                    <li>
+                        <NavLink to="/cart">Cart ({cart.length})</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/wishlist">Wishlist</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/login">Login</NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>
     );
-};
+}
 
 export default Header;
