@@ -1,8 +1,28 @@
-/* Global Reset*/
+/* Global Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* PAGE STRUCTURE */
+html,
+body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f5f5;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding-bottom: 80px;
+  /* Prevent footer overlap */
 }
 
 /* HEADER */
@@ -17,7 +37,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  font-family: 'Poppins', sans-serif;
 }
 
 header h1 a {
@@ -37,28 +56,18 @@ header nav ul {
   list-style: none;
   display: flex;
   gap: 25px;
-  margin: 0;
-  padding: 0;
-}
-
-header nav ul li {
-  font-size: 16px;
-  font-weight: 500;
 }
 
 header nav ul li a {
   text-decoration: none;
   color: #333;
+  font-weight: 500;
   transition: color 0.3s ease, border-bottom 0.3s ease;
   padding-bottom: 4px;
   border-bottom: 2px solid transparent;
 }
 
-header nav ul li a:hover {
-  color: #f36c19;
-  border-bottom: 2px solid #f36c19;
-}
-
+header nav ul li a:hover,
 header nav ul li .active {
   color: #f36c19;
   border-bottom: 2px solid #f36c19;
@@ -78,49 +87,90 @@ header nav ul li .active {
   }
 }
 
-/* PAGE STRUCTURE*/
-html,
-body {
-  height: 100%;
+/* PRODUCTS GRID */
+.products-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  background-color: #f5f5f5;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-main {
-  flex: 1;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/*  FOOTER  */
-footer {
+.card img {
   width: 100%;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title a:hover {
+  color: #f36c19;
+}
+
+.price {
+  color: green;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.loader {
+  text-align: center;
+  font-size: 1.5rem;
+  color: black;
+  margin-top: 50px;
+}
+
+/* FOOTER */
+footer {
   background-color: #f9f9f9;
   color: #333;
   font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 20px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-  position: relative;
-  bottom: 0;
+  padding: 25px 20px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
   margin-top: auto;
 }
 
 footer .top {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 footer .top ul {
   list-style: none;
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 25px;
+  flex-wrap: wrap;
   padding: 0;
-  margin: 0;
 }
 
 footer .top ul li a {
@@ -142,78 +192,9 @@ footer .bottom {
   text-align: center;
   font-size: 14px;
   color: #777;
-  margin-top: 10px;
 }
 
-footer .bottom p {
-  margin: 0;
-}
-
-@media (max-width: 600px) {
-  footer .top ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  footer .top ul li a {
-    font-size: 15px;
-  }
-}
-
-/* PRODUCT LIST (first.css) */
-.products-main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  background: #fff;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.price {
-  color: green;
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.loader {
-  text-align: center;
-  font-size: 1.5rem;
-  color: black;
-  margin-top: 50px;
-}
-
-/* 
-   AUTH PAGES STYLING
- */
-
+/* AUTH PAGES */
 .auth-form {
   background-color: #fff;
   width: 100%;
@@ -224,7 +205,6 @@ footer .bottom p {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }
 
 .auth-title {

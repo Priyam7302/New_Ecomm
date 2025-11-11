@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import instance from "../config/axiosConfig.js";
-import '../App.css';
 import { Link } from "react-router-dom";
+import '../App.css';
 
 function First() {
     const [products, setProducts] = useState([]);
@@ -41,7 +41,7 @@ function First() {
                     </Link>
                     <p className="title"><Link to={`/product/${obj._id}`}>{trimContent(obj.name, 8)}</Link></p>
                     {/* <p className="title"><Link to={`/product/${obj._id}`}>{obj.name}</Link></p> */}
-                    <p className="price">${obj.price}</p>
+                    <p className="price">{obj.price}</p>
                 </div>
             ))}
             </div>

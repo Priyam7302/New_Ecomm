@@ -1,15 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import OutletComponent from './pages/OutletComponent';
-import Cart from './pages/Cart';
+import OutletComponent from "./pages/OutletComponent";
+import Cart from "./pages/Cart"
 import SingleProduct from "./pages/SingleProduct";
 import First from "./pages/First";
 import Wishlist from "./pages/Wishlist";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Home from "./pages/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
 import CartProvider from "./contexts/CartProvider";
+import AuthProvider from "./contexts/AuthProvider";
 
 const router = createBrowserRouter([
     {
@@ -25,47 +26,49 @@ const router = createBrowserRouter([
                 element: <Cart />,
             },
             {
-                path: "product/:id",
-                element: <SingleProduct />
-            },
-            {
                 path: "wishlist",
-                element: <Wishlist />
-            },
-            {
-                path: "login",
-                element: <Login />
+                element: <Wishlist />,
             },
             {
                 path: "about",
-                element: <About />
+                element: <About />,
             },
             {
-                path: "contact",
-                element: <Contact />
-            },
-            {
-                path: "shop",
-                element: <First />
+                path: "login",
+                element: <Login />,
             },
             {
                 path: "register",
-                element: <Register />
-
+                element: <Register />,
             },
             {
-                path: "Home",
-                element: <Home />
-            }
-        ]
-
-    }
+                path: "shop",
+                element: <First />,
+            },
+            {
+                path: "product/:id",
+                element: <SingleProduct />,
+            },
+            {
+                path: "home",
+                element: (
+                    <ProtectedRoute>
+                        <Home />
+                    </ProtectedRoute>
+                ),
+            },
+        ],
+    },
 ]);
 
 function Router() {
-    return <CartProvider>
-        <RouterProvider router={router} />
-    </CartProvider>;
+    return (
+        <AuthProvider>
+            <CartProvider>
+                <RouterProvider router={router} />
+            </CartProvider>
+        </AuthProvider>
+    );
 }
 
 export default Router;
