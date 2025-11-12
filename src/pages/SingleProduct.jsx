@@ -13,6 +13,7 @@ function SingleProduct() {
     const [singleProduct, setSingleProduct] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [added, setAdded] = useState(false);
 
     useEffect(() => {
         getSingleData(id);
@@ -42,8 +43,17 @@ function SingleProduct() {
     }
 
     function handleAddToCart(ProductToAdd) {
+        const isAlreadyInCart = cart.some((item) => item.id === ProductToAdd.id);
+
+        if (isAlreadyInCart) {
+            alert("This product is already in your cart!");
+            return;
+        }
+
         setCart([...cart, ProductToAdd]);
+        setAdded(true);
     }
+
 
     if (loading) return <div className="loader">Loading...</div>;
     if (error) return <div className="error">{error}</div>;
@@ -65,10 +75,9 @@ function SingleProduct() {
                     <h4 className="product-price">₹{singleProduct.price}</h4>
                     <p className="product-desc">{singleProduct.description}</p>
                     <button
-                        className="add-to-cart-btn"
-                        onClick={() => handleAddToCart(singleProduct)}
-                    >
-                        Add To Cart
+                        className={`add-to-cart-btn ${added ? "added" : ""}`}
+                        onClick={() => handleAddToCart(singleProduct)}>
+                        {added === true ? "Added" : "Add To Cart"}
                     </button>
                 </div>
             </section>

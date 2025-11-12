@@ -69,6 +69,20 @@
     background-color: #d85f14;
 }
 
+/* ✅ When the product is already added */
+.add-to-cart-btn.added {
+    background-color: #28a745;
+    /* green */
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Optional — disable hover effect for added state */
+.add-to-cart-btn.added:hover {
+    background-color: #28a745;
+    transform: none;
+}
+
 @media (max-width: 768px) {
     .single-product {
         flex-direction: column;
