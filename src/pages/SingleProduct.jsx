@@ -6,7 +6,7 @@ import "../pages/SingleProduct.css";
 
 function SingleProduct() {
     // const id = useParams().id;
-    
+
     const { id } = useParams();
     const { cart, setCart } = useCart();
 
@@ -21,6 +21,7 @@ function SingleProduct() {
     useEffect(() => {
         localStorage.setItem("storedCart", JSON.stringify(cart));
     }, [cart]);
+    console.log(cart);
 
     async function getSingleData(id) {
         try {
@@ -40,8 +41,8 @@ function SingleProduct() {
         }
     }
 
-    function handleAddToCart(idToAdd) {
-        setCart([...cart, { id: idToAdd, quantity: 1 }]);
+    function handleAddToCart(ProductToAdd) {
+        setCart([...cart, ProductToAdd]);
     }
 
     if (loading) return <div className="loader">Loading...</div>;
@@ -65,7 +66,7 @@ function SingleProduct() {
                     <p className="product-desc">{singleProduct.description}</p>
                     <button
                         className="add-to-cart-btn"
-                        onClick={() => handleAddToCart(singleProduct._id)}
+                        onClick={() => handleAddToCart(singleProduct)}
                     >
                         Add To Cart
                     </button>

@@ -275,3 +275,297 @@ footer .bottom {
     width: 90%;
   }
 }
+
+
+/* ===============================
+   🛒 CART PAGE STYLES
+================================== */
+
+/* Container — added top padding to clear sticky navbar */
+.cart-container {
+  min-height: 100vh;
+  background-color: #fff;
+  color: #222;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px 2rem 2rem;
+  /* ✅ prevents overlap with sticky header */
+}
+
+/* Header Section */
+.cart-header {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cart-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Main Layout */
+.cart-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Cart Items Section */
+.cart-items {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cart-items-header {
+  padding-left: 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Product Info */
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-image {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  padding: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.product-details h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.product-details p {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* Quantity Controls */
+.quantity-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-control button {
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.quantity-control button:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.quantity-control span {
+  font-weight: 500;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Price */
+.price {
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Remove Button */
+.remove {
+  text-align: center;
+}
+
+.remove button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #777;
+  transition: color 0.2s ease;
+}
+
+.remove button:hover {
+  color: #000;
+}
+
+/* Summary Section */
+.summary {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+  /* ✅ makes summary stick below navbar */
+}
+
+.summary h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.summary-line strong {
+  font-weight: 700;
+}
+
+.warranty {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.checkout-btn {
+  background: #000;
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.checkout-btn:hover {
+  background: #333;
+}
+
+/* Footer */
+.cart-footer {
+  max-width: 1100px;
+  margin: 3rem auto 0;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.cart-footer p {
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.cart-footer h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
+}
+
+/* ===============================
+   📱 Responsive Design
+================================== */
+@media (max-width: 900px) {
+  .cart-main {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+    margin-top: 2rem;
+  }
+
+  .cart-items-header {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .cart-item {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .cart-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .cart-items-header {
+    display: none;
+  }
+
+  .cart-item {
+    grid-template-columns: 1fr;
+    text-align: left;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fff;
+  }
+
+  .product-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quantity-control,
+  .price,
+  .remove {
+    margin-top: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .summary {
+    margin-top: 1.5rem;
+  }
+}

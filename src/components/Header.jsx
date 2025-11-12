@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthProvider";
 
 function Header() {
     const { cart } = useCart();
+    // const { cartItems} = useCart();
     const { isLoggedIn, logout } = useAuth();
 
     return (

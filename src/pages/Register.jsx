@@ -42,84 +42,88 @@ function Register() {
   }
 
   return (
-    <div className="form-container">
-      {isError && <p>{isError}</p>}
-      <h2>Register into Ecommerce</h2>
-      <div className="form-wrapper">
-        <form action="" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              name="name"
-              id="name"
-              value={data.name}
-              onChange={handleChange}
-            />
-          </div>
+    <form className="auth-form" onSubmit={handleSubmit}>
+      <h2 className="auth-title">Register into Ecommerce</h2>
 
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              placeholder="Enter Username"
-              name="username"
-              id="username"
-              value={data.username}
-              onChange={handleChange}
-            />
-          </div>
+      {isError && <p style={{ color: "red", textAlign: "center" }}>{isError}</p>}
 
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="text"
-              placeholder="Enter Phone"
-              name="phone"
-              id="phone"
-              value={data.phone}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              name="email"
-              id="email"
-              value={data.email}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              placeholder="Enter password"
-              name="password"
-              id="password"
-              value={data.password}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <button type="submit" className={isSubmitting ? "inProcess" : ""}>
-              {isSubmitting ? "Registering..." : "Register"}
-            </button>
-          </div>
-        </form>
-        <p>
-          Already Registered? <Link to="/login">Login Here</Link>
-        </p>
+      <div className="auth-group">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Full Name"
+          value={data.name}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
       </div>
-    </div>
+
+      <div className="auth-group">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+          value={data.username}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
+      </div>
+
+      <div className="auth-group">
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          placeholder="Phone Number"
+          value={data.phone}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
+      </div>
+
+      <div className="auth-group">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email Address"
+          value={data.email}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
+      </div>
+
+      <div className="auth-group">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          value={data.password}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
+      </div>
+
+      <button type="submit" className="auth-btn" disabled={isSubmitting}>
+        {isSubmitting ? "Registering..." : "Register"}
+      </button>
+
+      <p className="auth-text">
+        Already have an account?{" "}
+        <Link to="/login" className="auth-link">
+          Login here
+        </Link>
+      </p>
+    </form>
   );
 }
-
 
 export default Register;

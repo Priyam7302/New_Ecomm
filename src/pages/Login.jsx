@@ -41,47 +41,49 @@ function Login() {
   }
 
   return (
-    <div className="form-container">
-      {isError && <p>{isError}</p>}
-      <h2>Login to Ecommerce</h2>
-      <div className="form-wrapper">
-        <form action="" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              placeholder="Enter username"
-              name="username"
-              id="username"
-              value={data.username}
-              onChange={handleChange}
-            />
-          </div>
+    <form className="auth-form" onSubmit={handleSubmit}>
+      <h2 className="auth-title">Login to Ecommerce</h2>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              placeholder="Enter password"
-              name="password"
-              id="password"
-              value={data.password}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className={isSubmitting ? "inProcess" : ""}>
-              {isSubmitting ? "Logging in..." : "Login"}
-            </button>
-          </div>
-        </form>
-        <p>
-          New User? <Link to="/register">Register Here</Link>
-        </p>
+      {isError && <p style={{ color: "red", textAlign: "center" }}>{isError}</p>}
+
+      <div className="auth-group">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+          value={data.username}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
       </div>
-    </div>
+
+      <div className="auth-group">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          value={data.password}
+          onChange={handleChange}
+          className="auth-input"
+          required
+        />
+      </div>
+
+      <button type="submit" className="auth-btn" disabled={isSubmitting}>
+        {isSubmitting ? "Logging in..." : "Login"}
+      </button>
+
+      <p className="auth-text">
+        New user?{" "}
+        <Link to="/register" className="auth-link">
+          Register here
+        </Link>
+      </p>
+    </form>
   );
 }
-
 
 export default Login;
