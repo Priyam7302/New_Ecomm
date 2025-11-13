@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import instance from "../config/axiosConfig.js";
 import { Link } from "react-router-dom";
+// import '../Apps.css';
 import '../App.css';
+
 
 function First() {
     const [products, setProducts] = useState([]);

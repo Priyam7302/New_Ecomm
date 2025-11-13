@@ -43,7 +43,7 @@ function SingleProduct() {
     }
 
     function handleAddToCart(ProductToAdd) {
-        const isAlreadyInCart = cart.some((item) => item.id === ProductToAdd.id);
+        const isAlreadyInCart = cart.some((item) => item._id === ProductToAdd._id);
 
         if (isAlreadyInCart) {
             alert("This product is already in your cart!");

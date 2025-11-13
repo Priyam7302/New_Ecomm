@@ -3,7 +3,7 @@ import { useCart } from "../contexts/CartProvider";
 
 const Cart = () => {
     const { cart, setCart } = useCart();
-    
+
     useEffect(() => {
         localStorage.setItem("storedCart", JSON.stringify(cart));
     }, [cart]);
@@ -48,20 +48,22 @@ const Cart = () => {
         )
     }
 
-    
+
     function handleRemove(id) {
         setCart(cart.filter(obj => obj._id !== id));
     }
-    
+
     function totalPrice() {
         return cart.reduce((sum, obj) => sum + obj.quantity * obj.price, 0)
     }
-    
+
+    function trimContent(input, len) {
+        let arr = input.split(" ");
+        return arr.length > len ? arr.slice(0, len).join(" ") + "..." : input;
+    }
+
     return (
         <div className="cart-container">
-            <header className="cart-header">
-                <h1>Shopping Cart</h1>
-            </header>
 
             <main className="cart-main">
                 <section className="cart-items">
@@ -80,7 +82,7 @@ const Cart = () => {
                                 <div className="product-info">
                                     <img src={obj.image} alt={obj.name} className="product-image" />
                                     <div className="product-details">
-                                        <h3>{obj.name}</h3>
+                                        <h3>{trimContent(obj.name, 4)}</h3>
                                         <p>Color: {obj.color || "Coffee"}</p>
                                     </div>
                                 </div>
@@ -124,15 +126,15 @@ const Cart = () => {
 
 export default Cart;
 
-// function handleQuantityChange(action, index) {
-    //     setQuantity(prev => {
-        //         const updated = [...prev];
-        //         if (action === "increment") updated[index] = (updated[index] || 1) + 1;
-    //         if (action === "decrement") updated[index] = Math.max((updated[index] || 1) - 1, 1);
-    //         return updated;
-    //     });
-    // }
-    
-                                        {/* <button onClick={() => handleQuantityChange("decrement", index)}>-</button>
-                                        <span>{quantity[index] || 1}</span>
-                                        <button onClick={() => handleQuantityChange("increment", index)}>+</button> */}
+// // function handleQuantityChange(action, index) {
+// //     setQuantity(prev => {
+// //         const updated = [...prev];
+// //         if (action === "increment") updated[index] = (updated[index] || 1) + 1;
+// //         if (action === "decrement") updated[index] = Math.max((updated[index] || 1) - 1, 1);
+// //         return updated;
+// //     });
+// // }
+
+// {/* <button onClick={() => handleQuantityChange("decrement", index)}>-</button>
+//                                         <span>{quantity[index] || 1}</span>
+//                                         <button onClick={() => handleQuantityChange("increment", index)}>+</button> */}

@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CartProvider from "./contexts/CartProvider";
 import AuthProvider from "./contexts/AuthProvider";
+import Contact from "./pages/Contact";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "about",
                 element: <About />,
+            },
+            {
+                path: "contact",
+                element: <Contact />
             },
             {
                 path: "login",
