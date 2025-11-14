@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCart } from "../contexts/CartProvider";
+import {useCurrency} from "../contexts/CurrencyProvider";
+
 
 const Cart = () => {
     const { cart, setCart } = useCart();
+    const { currency, convert } = useCurrency();
+
 
     useEffect(() => {
         localStorage.setItem("storedCart", JSON.stringify(cart));
@@ -93,7 +97,11 @@ const Cart = () => {
                                     <button onClick={() => increment(obj._id)}>+</button>
                                 </div>
 
-                                <div className="price">₹{obj.price * (obj.quantity)}</div>
+                                {/* <div className="price">₹{obj.price * (obj.quantity)}</div> */}
+                                <div className="price">
+                                    {currency} {convert(obj.price * obj.quantity).toFixed(2)}
+                                </div>
+
 
                                 <div className="remove">
                                     <button onClick={() => handleRemove(obj._id)}>🗑️</button>
@@ -107,7 +115,11 @@ const Cart = () => {
                     <h2>Order Summary</h2>
                     <div className="summary-line">
                         <span>Total:</span>
-                        <strong>₹{totalPrice()}</strong>
+                        {/* <strong>₹{totalPrice()}</strong> */}
+                        <strong>
+                            {currency} {convert(totalPrice()).toFixed(2)}
+                        </strong>
+
                     </div>
 
                     <div className="warranty">

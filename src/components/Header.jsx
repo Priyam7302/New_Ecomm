@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { useCart } from "../contexts/CartProvider";
 import { useAuth } from "../contexts/AuthProvider";
+import { useCurrency } from "../contexts/CurrencyProvider";
 
 function Header() {
     const { cart } = useCart();
-    // const { cartItems} = useCart();
     const { isLoggedIn, logout } = useAuth();
+    const { currency, setCurrency } = useCurrency();
 
     return (
         <header>
@@ -16,36 +17,30 @@ function Header() {
             <nav>
                 <ul>
                     <li>
-                        <NavLink
-                            to="/cart"
-                            className={({ isActive }) => (isActive ? "active" : "")}
-                        >
-                            Cart ({cart.length})
-                        </NavLink>
+                        <NavLink to="/cart">Cart ({cart.length})</NavLink>
                     </li>
 
                     <li>
-                        <NavLink
-                            to="/wishlist"
-                            className={({ isActive }) => (isActive ? "active" : "")}
-                        >
-                            Wishlist
-                        </NavLink>
+                        <NavLink to="/wishlist">Wishlist</NavLink>
                     </li>
 
                     <li>
                         {isLoggedIn ? (
-                            <button onClick={logout} className="logout-btn">
-                                Logout
-                            </button>
+                            <button onClick={logout}>Logout</button>
                         ) : (
-                            <NavLink
-                                to="/login"
-                                className={({ isActive }) => (isActive ? "active" : "")}
-                            >
-                                Login
-                            </NavLink>
+                            <NavLink to="/login">Login</NavLink>
                         )}
+                    </li>
+
+                    <li>
+                        <select
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value)}
+                        >
+                            <option value="INR">INR</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                        </select>
                     </li>
                 </ul>
             </nav>

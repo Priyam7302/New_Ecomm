@@ -3,9 +3,12 @@ import { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../contexts/CartProvider";
 import "../pages/SingleProduct.css";
+import { useCurrency } from "../contexts/CurrencyProvider"
 
 function SingleProduct() {
     // const id = useParams().id;
+    const { currency, convert } = useCurrency();
+
 
     const { id } = useParams();
     const { cart, setCart } = useCart();
@@ -72,7 +75,11 @@ function SingleProduct() {
                 <div className="product-right">
                     <h2 className="product-title">{singleProduct.name}</h2>
                     <p className="product-category">{singleProduct.category}</p>
-                    <h4 className="product-price">₹{singleProduct.price}</h4>
+                    {/* <h4 className="product-price">₹{singleProduct.price}</h4> */}
+                    <h4 className="product-price">
+                        {currency} {convert(singleProduct.price).toFixed(2)}
+                    </h4>
+
                     <p className="product-desc">{singleProduct.description}</p>
                     <button
                         className={`add-to-cart-btn ${added ? "added" : ""}`}
