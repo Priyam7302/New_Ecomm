@@ -1,62 +1,178 @@
+// import instance from "../config/axiosConfig";
+// import { use, useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import { useCart } from "../contexts/CartProvider";
+// import "../pages/SingleProduct.css";
+// import { useCurrency } from "../contexts/CurrencyProvider"
+
+// // function SingleProduct() {
+// //     // const id = useParams().id;
+// //     const { currency, convert } = useCurrency();
+
+
+// //     const { id } = useParams();
+// //     const { cart, setCart } = useCart();
+
+// //     const [singleProduct, setSingleProduct] = useState({});
+// //     const [loading, setLoading] = useState(false);
+// //     const [error, setError] = useState(null);
+// //     const [added, setAdded] = useState(false);
+
+// //     useEffect(() => {
+// //         getSingleData(id);
+// //     }, [id]);
+
+// //     useEffect(() => {
+// //         localStorage.setItem("storedCart", JSON.stringify(cart));
+// //     }, [cart]);
+// //     console.log(cart);
+
+// //     async function getSingleData(id) {
+// //         try {
+// //             setLoading(true);
+// //             const response = await instance.get("/product/product/" + id);
+// //             if (response.data.length === 0) {
+// //                 setLoading(false);
+// //                 setError("Check the ID parameter");
+// //             } else {
+// //                 setSingleProduct(response.data);
+// //                 setLoading(false);
+// //             }
+// //         } catch (error) {
+// //             console.log(error);
+// //             setError("Check the ID parameter");
+// //             setLoading(false);
+// //         }
+// //     }
+
+// //     function handleAddToCart(ProductToAdd) {
+// //         const isAlreadyInCart = cart.some((item) => item._id === ProductToAdd._id);
+
+// //         if (isAlreadyInCart) {
+// //             alert("This product is already in your cart!");
+// //             return;
+// //         }
+
+// //         setCart([...cart, ProductToAdd]);
+// //         setAdded(true);
+// //     }
+
+
+// //     if (loading) return <div className="loader">Loading...</div>;
+// //     if (error) return <div className="error">{error}</div>;
+
+// //     return (
+// //         <main className="single-product-page">
+// //             <section className="single-product">
+// //                 <div className="product-left">
+// //                     <img
+// //                         src={singleProduct.image}
+// //                         alt={singleProduct.name}
+// //                         className="product-image"
+// //                     />
+// //                 </div>
+
+// //                 <div className="product-right">
+// //                     <h2 className="product-title">{singleProduct.name}</h2>
+// //                     <p className="product-category">{singleProduct.category}</p>
+// //                     {/* <h4 className="product-price">₹{singleProduct.price}</h4> */}
+// //                     <h4 className="product-price">
+// //                         {currency} {convert(singleProduct.price).toFixed(2)}
+// //                     </h4>
+
+// //                     <p className="product-desc">{singleProduct.description}</p>
+// //                     <button
+// //                         className={`add-to-cart-btn ${added ? "added" : ""}`}
+// //                         onClick={() => handleAddToCart(singleProduct)}>
+// //                         {added === true ? "Added" : "Add To Cart"}
+// //                     </button>
+// //                 </div>
+// //             </section>
+// //         </main>
+// //     );
+// // }
+
+// // export default SingleProduct;
+
+
+
 import instance from "../config/axiosConfig";
-import { use, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartProvider";
-import "../pages/SingleProduct.css";
-import { useCurrency } from "../contexts/CurrencyProvider"
+import { useCurrency } from "../contexts/CurrencyProvider";
+
+// Firebase imports
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 function SingleProduct() {
-    // const id = useParams().id;
-    const { currency, convert } = useCurrency();
-
-
     const { id } = useParams();
     const { cart, setCart } = useCart();
+    const { convert, currency } = useCurrency();
+    const navigate = useNavigate();
 
     const [singleProduct, setSingleProduct] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [added, setAdded] = useState(false);
 
+    // Fetch single product data by ID
     useEffect(() => {
         getSingleData(id);
     }, [id]);
 
+    // Save cart to localStorage whenever it changes
     useEffect(() => {
         localStorage.setItem("storedCart", JSON.stringify(cart));
     }, [cart]);
-    console.log(cart);
 
     async function getSingleData(id) {
         try {
             setLoading(true);
             const response = await instance.get("/product/product/" + id);
-            if (response.data.length === 0) {
-                setLoading(false);
+
+            if (!response.data || response.data.length === 0) {
                 setError("Check the ID parameter");
             } else {
                 setSingleProduct(response.data);
-                setLoading(false);
             }
-        } catch (error) {
-            console.log(error);
+        } catch (err) {
+            console.log(err);
             setError("Check the ID parameter");
+        } finally {
             setLoading(false);
         }
     }
 
-    function handleAddToCart(ProductToAdd) {
-        const isAlreadyInCart = cart.some((item) => item._id === ProductToAdd._id);
+    // Add product to cart
+    async function handleAddToCart(product) {
+        const isAlreadyInCart = cart.some((item) => item._id === product._id);
 
         if (isAlreadyInCart) {
             alert("This product is already in your cart!");
             return;
         }
 
-        setCart([...cart, ProductToAdd]);
+        const updatedCart = [...cart, { ...product, quantity: 1 }];
+        setCart(updatedCart);
         setAdded(true);
-    }
 
+        // Save the cart item to Firebase
+        try {
+            await setDoc(doc(db, "user_cart", product._id), {
+                ...product,
+                quantity: 1,
+                addedAt: new Date(),
+            });
+            console.log("Product saved to Firebase!");
+        } catch (err) {
+            console.log("Error saving to Firebase:", err);
+        }
+
+        // Navigate to cart page
+        navigate("/cart");
+    }
 
     if (loading) return <div className="loader">Loading...</div>;
     if (error) return <div className="error">{error}</div>;
@@ -71,20 +187,18 @@ function SingleProduct() {
                         className="product-image"
                     />
                 </div>
-
                 <div className="product-right">
                     <h2 className="product-title">{singleProduct.name}</h2>
                     <p className="product-category">{singleProduct.category}</p>
-                    {/* <h4 className="product-price">₹{singleProduct.price}</h4> */}
                     <h4 className="product-price">
                         {currency} {convert(singleProduct.price).toFixed(2)}
                     </h4>
-
                     <p className="product-desc">{singleProduct.description}</p>
                     <button
                         className={`add-to-cart-btn ${added ? "added" : ""}`}
-                        onClick={() => handleAddToCart(singleProduct)}>
-                        {added === true ? "Added" : "Add To Cart"}
+                        onClick={() => handleAddToCart(singleProduct)}
+                    >
+                        {added ? "Added" : "Add To Cart"}
                     </button>
                 </div>
             </section>
