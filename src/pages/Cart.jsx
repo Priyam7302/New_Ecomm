@@ -378,9 +378,9 @@ const Cart = () => {
     }
 
     return (
-        <div className="cart-container">
-            <main className="cart-main">
-                <section className="cart-items">
+        <div className="cart-container" id="cart-page">
+            <main className="cart-main" id="cart-main">
+                <section className="cart-items" id="cart-items">
                     <div className="cart-items-header">
                         <span>Product</span>
                         <span>Quantity</span>

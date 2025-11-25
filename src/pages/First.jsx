@@ -92,9 +92,9 @@ function First() {
     if (loading) return <div className="loader">Loading...</div>;
 
     return (
-        <div className="products-main">
+        <div className="products-main" id="products-main">
             {products.map(p => (
-                <div className="card" key={p._id}>
+                <div className="card product-card" key={p._id} data-id={p._id}>
                     <Link to={`/product/${p._id}`}>
                         <img src={p.image} alt={p.name} />
                     </Link>

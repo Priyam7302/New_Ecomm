@@ -60,15 +60,15 @@ import { useAuth } from "../contexts/AuthProvider";
 function Header() {
     const { cart } = useCart();
     const { currency, setCurrency } = useCurrency();
-    const { user, logout } = useAuth();
+    const { state, logout } = useAuth();
 
     return (
-        <header>
-            <h1>
+        <header id="site-header" className="site-header">
+            <h1 id="brand">
                 <NavLink to="/">Ecommerce</NavLink>
             </h1>
 
-            <ul>
+            <ul id="nav-list" className="nav-list">
                 {/* Cart Link */}
                 <li className="cart-nav">
                     <NavLink to="/cart">
@@ -93,7 +93,7 @@ function Header() {
 
                 {/* Login / Logout Button */}
                 <li>
-                    {user ? (
+                    {state.isLoggedIn ? (
                         <button onClick={logout} className="logout-btn">
                             Logout
                         </button>

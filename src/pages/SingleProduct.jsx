@@ -178,9 +178,9 @@ function SingleProduct() {
     if (error) return <div className="error">{error}</div>;
 
     return (
-        <main className="single-product-page">
-            <section className="single-product">
-                <div className="product-left">
+        <main id="single-product-page" className="single-product-page">
+            <section className="single-product" id="single-product">
+                <div className="product-left" id="product-left">
                     <img
                         src={singleProduct.image}
                         alt={singleProduct.name}

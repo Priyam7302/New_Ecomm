@@ -2,8 +2,8 @@ import React from 'react';
 
 const Wishlist = () => {
     return (
-        <div>
-            Wishlist
+        <div id="wishlist-page" className="wishlist-page">
+            <div className="wishlist-container">Wishlist</div>
         </div>
     );
 }

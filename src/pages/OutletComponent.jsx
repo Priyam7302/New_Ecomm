@@ -7,7 +7,9 @@ function OutletComponent() {
     return (
         <>
             <Header />
-            <Outlet />
+            <main id="app-main" className="app-main">
+                <Outlet />
+            </main>
             <Footer />
         </>
     )
