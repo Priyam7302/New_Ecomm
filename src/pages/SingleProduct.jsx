@@ -2,7 +2,6 @@ import instance from "../config/axiosConfig";
 import { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../contexts/CartProvider";
-import "../pages/SingleProduct.css";
 import { useCurrency } from "../contexts/CurrencyProvider"
 
 function SingleProduct() {
@@ -68,7 +67,7 @@ function SingleProduct() {
                     <img
                         src={singleProduct.image}
                         alt={singleProduct.name}
-                        className="product-image"
+                        className="product-image single-product-image"
                     />
                 </div>
 

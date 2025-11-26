@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useCart } from "../contexts/CartProvider";
-import {useCurrency} from "../contexts/CurrencyProvider";
+import { useCurrency } from "../contexts/CurrencyProvider";
 
 
 const Cart = () => {
@@ -84,7 +84,7 @@ const Cart = () => {
                         cart.map((obj, index) => (
                             <div key={obj._id} className="cart-item">
                                 <div className="product-info">
-                                    <img src={obj.image} alt={obj.name} className="product-image" />
+                                    <img src={obj.image} alt={obj.name} className="product-image cart-product-image" />
                                     <div className="product-details">
                                         <h3>{trimContent(obj.name, 4)}</h3>
                                         <p>Color: {obj.color || "Coffee"}</p>
