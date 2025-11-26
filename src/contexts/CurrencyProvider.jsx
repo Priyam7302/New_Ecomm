@@ -4,7 +4,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 const CurrencyContext = createContext();
 
 const CurrencyProvider = ({ children }) => {
-    const [currency, setCurrency] = useState("INR");
+    const [currency, setCurrency] = useState(() => {
+        try {
+            const stored = localStorage.getItem("currency");
+            return stored ? stored : "INR";
+        } catch (e) {
+            return "INR";
+        }
+    });
     const [rates, setRates] = useState({ INR: 1, USD: 1, EUR: 1 })
 
     useEffect(() => {
@@ -24,6 +31,14 @@ const CurrencyProvider = ({ children }) => {
     function convert(priceInINR) {
         return priceInINR * rates[currency];
     }
+
+    useEffect(() => {
+        try {
+            localStorage.setItem("currency", currency);
+        } catch (e) {
+            // ignore storage errors silently
+        }
+    }, [currency]);
 
     return (
         <CurrencyContext.Provider value={{ currency, setCurrency, convert }}>
