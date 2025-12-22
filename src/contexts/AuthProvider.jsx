@@ -1,53 +1,100 @@
+// import { createContext, useContext, useState, useEffect } from "react";
+// import instance from "../config/axiosConfig";
+// import { useNavigate } from "react-router-dom";
+
+
+// const authContext = createContext();
+
+// function AuthProvider({ children }) {
+//     const [isLoggedIn, setIsLoggedIn] = useState(null);
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         checkAuthStatus();
+//     }, []);
+
+//     async function checkAuthStatus() {
+//         console.log("inside authProvider");
+//         try {
+//             const response = await instance.get("/auth/authCheck", {
+//                 withCredentials: true,
+//             });
+//             setIsLoggedIn(true);
+//         } catch (error) {
+//             console.log(error);
+//             setIsLoggedIn(false);
+//         }
+//     }
+
+//     async function logout() {
+//         try {
+//             await instance.post(
+//                 "/auth/logout",
+//                 {},
+//                 {
+//                     withCredentials: true,
+//                 }
+//             );
+//             setIsLoggedIn(false);
+//             navigate("/login");
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+
+//     return (
+//         <authContext.Provider value={{ isLoggedIn, checkAuthStatus, logout }}>
+//             {children}
+//         </authContext.Provider>
+//     );
+// }
+
+// export function useAuth() {
+//     return useContext(authContext);
+// }
+
+// export default AuthProvider;
 import { createContext, useContext, useState, useEffect } from "react";
 import instance from "../config/axiosConfig";
 
 const authContext = createContext();
 
 function AuthProvider({ children }) {
-    const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-    useEffect(() => {
-        checkAuthStatus();
-    }, []);
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
-    async function checkAuthStatus() {
-        console.log("inside authProvider");
-        try {
-            const response = await instance.get("/auth/authCheck", {
-                withCredentials: true,
-            });
-            setIsLoggedIn(true);
-        } catch (error) {
-            console.log(error);
-            setIsLoggedIn(false);
-        }
+  async function checkAuthStatus() {
+    try {
+      await instance.get("/auth/authCheck", {
+        withCredentials: true,
+      });
+      setIsLoggedIn(true);
+    } catch (error) {
+      setIsLoggedIn(false);
     }
+  }
 
-    async function logout() {
-        try {
-            await instance.post(
-                "/auth/logout",
-                {},
-                {
-                    withCredentials: true,
-                }
-            );
-            setIsLoggedIn(false);
-            <Navigate to="/login" />;
-        } catch (error) {
-            console.log(error);
-        }
+  async function logout() {
+    try {
+      await instance.post("/auth/logout", {}, { withCredentials: true });
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    return (
-        <authContext.Provider value={{ isLoggedIn, checkAuthStatus, logout }}>
-            {children}
-        </authContext.Provider>
-    );
+  return (
+    <authContext.Provider value={{ isLoggedIn, checkAuthStatus, logout }}>
+      {children}
+    </authContext.Provider>
+  );
 }
 
 export function useAuth() {
-    return useContext(authContext);
+  return useContext(authContext);
 }
 
 export default AuthProvider;

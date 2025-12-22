@@ -12,47 +12,58 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CartProvider from "./contexts/CartProvider";
 import AuthProvider from "./contexts/AuthProvider";
 import Contact from "./pages/Contact";
-
+import { WishlistProvider } from "./contexts/WishlistProvider";
 import CurrencyProvider from "./contexts/CurrencyProvider";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
+  {
+    path: "/",
+    element: (
+      <CurrencyProvider>
+        <OutletComponent />
+      </CurrencyProvider>
+    ),
+    children: [
+      { index: true, element: <First /> },
+      // { path: "cart", element: <Cart /> },
+      { path: "wishlist", element: <Wishlist /> },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      { path: "shop", element: <First /> },
+      { path: "product/:id", element: <SingleProduct /> },
+      {
+        path: "home",
         element: (
-            <CurrencyProvider>     
-                <OutletComponent />
-            </CurrencyProvider>
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
         ),
-        children: [
-            { index: true, element: <First /> },
-            { path: "cart", element: <Cart /> },
-            { path: "wishlist", element: <Wishlist /> },
-            { path: "about", element: <About /> },
-            { path: "contact", element: <Contact /> },
-            { path: "login", element: <Login /> },
-            { path: "register", element: <Register /> },
-            { path: "shop", element: <First /> },
-            { path: "product/:id", element: <SingleProduct /> },
-            {
-                path: "home",
-                element: (
-                    <ProtectedRoute>
-                        <Home />
-                    </ProtectedRoute>
-                ),
-            },
-        ],
-    },
+      },
+      {
+        path: "cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
 ]);
 
+
 function Router() {
-    return (
-        <AuthProvider>
-            <CartProvider>
-                <RouterProvider router={router} />
-            </CartProvider>
-        </AuthProvider>
-    );
+  return (
+    <AuthProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <RouterProvider router={router} />
+        </WishlistProvider>
+      </CartProvider>
+    </AuthProvider>
+  );
 }
 
 export default Router;
