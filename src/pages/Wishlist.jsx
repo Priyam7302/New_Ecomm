@@ -17,6 +17,10 @@ const Wishlist = () => {
       </div>
     );
   }
+  function trimContent(input, len) {
+    let arr = input.split(" ");
+    return arr.length > len ? arr.slice(0, len).join(" ") + "..." : input;
+  }
 
   return (
     <div className="wishlist-page">
@@ -32,7 +36,9 @@ const Wishlist = () => {
             </Link>
 
             <p className="title">
-              <Link to={`/product/${product._id}`}>{product.name}</Link>
+              <Link to={`/product/${product._id}`}>
+                {trimContent(product.name, 8)}
+              </Link>
             </p>
 
             <button
